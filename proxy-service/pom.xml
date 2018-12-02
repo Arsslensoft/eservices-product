@@ -83,14 +83,14 @@
 				<configuration>
 					<images>
 						<image>
-							<alias>product-service</alias>
+							<alias>${project.artifactId}</alias>
 							<name>${project.artifactId}</name>
 
 							<build>
 
 								<from>java:8</from>
 								<entryPoint>
-									<shell>sleep 40 &amp;&amp; java -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom -jar /maven/${project.build.finalName}.jar &amp;&amp; java -jar /maven/${project.build.finalName}.jar  </shell>
+									<shell>sleep 20 &amp;&amp; java -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom -jar /maven/${project.build.finalName}.jar &amp;&amp; java -jar /maven/${project.build.finalName}.jar  </shell>
 								</entryPoint>
 
 								<env>

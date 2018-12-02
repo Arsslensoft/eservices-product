@@ -63,7 +63,7 @@
 				<configuration>
 					<images>
 						<image>
-							<alias>product-service</alias>
+							<alias>${project.artifactId}</alias>
 							<name>${project.artifactId}</name>
 
 							<build>

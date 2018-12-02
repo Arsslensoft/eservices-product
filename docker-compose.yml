@@ -7,11 +7,11 @@ services:
         expose:
             - 8888
         networks:
-            - seted-network
+            - arsslens-network
         environment:
             SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": { "server":{"git":{"uri":"https://github.com/Arsslensoft/eservices-configs"}}}}}}'
 
-    product-service:
+    product-service-1:
         image: product-service
         expose:
         - 8080
@@ -24,7 +24,7 @@ services:
             - config-service:config-service
             - discovery-service:discovery-service
         networks:
-            - seted-network
+            - arsslens-network
         environment:
             SPRING_APPLICATION_JSON: '{"spring":{"cloud":{"config":{"uri":"http://config-service:8888"}}}}'     
 
@@ -41,7 +41,7 @@ services:
             EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
 
         networks:
-            - seted-network
+            - arsslens-network
 
     proxy-service:
         image: proxy-service
@@ -56,9 +56,9 @@ services:
             - config-service
             - discovery-service
         networks:
-            - seted-network
+            - arsslens-network
         environment:
             SPRING_APPLICATION_JSON: '{"spring":{"cloud":{"config":{"uri":"http://config-service:8888"}}}}'     
 networks:
-    seted-network:
+    arsslens-network:
         driver: bridge
