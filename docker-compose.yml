@@ -1,0 +1,64 @@
+version: '2.0'
+services:
+    config-service:
+        image: config-service
+        ports:
+            - "8888:8888"
+        expose:
+            - 8888
+        networks:
+            - seted-network
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": { "server":{"git":{"uri":"https://github.com/Arsslensoft/eservices-configs"}}}}}}'
+
+    product-service:
+        image: product-service
+        expose:
+        - 8080
+        ports:
+        - "8080:8080"
+        depends_on:
+            - config-service
+            - discovery-service
+        links:
+            - config-service:config-service
+            - discovery-service:discovery-service
+        networks:
+            - seted-network
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring":{"cloud":{"config":{"uri":"http://config-service:8888"}}}}'     
+
+    discovery-service:
+        image: discovery-service
+        expose:
+            - 8761
+        ports:
+            - "8761:8761"
+        depends_on:
+            - config-service
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-service:8888"}}}}'
+            EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+
+        networks:
+            - seted-network
+
+    proxy-service:
+        image: proxy-service
+        expose:
+            - 9999
+        links:
+            - config-service:config-service
+            - discovery-service:discovery-service
+        ports:
+            - "9999:9999"
+        depends_on:
+            - config-service
+            - discovery-service
+        networks:
+            - seted-network
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring":{"cloud":{"config":{"uri":"http://config-service:8888"}}}}'     
+networks:
+    seted-network:
+        driver: bridge
