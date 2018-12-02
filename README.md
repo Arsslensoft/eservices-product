@@ -27,7 +27,7 @@ Dockerizing product microservices
 - [After party](#after-party)
 <!-- /TOC -->
 ## Acknowledgement
-This work has been achieved with the collaboration of Mohamed Assil Ben Amor, Saturday at GO MY CODE (eating a lot of snacks) and doing a lot of researches and testing.
+This work has been achieved with the collaboration of Mohamed Assil Ben Amor, Saturday at GO MY CODE (eating a lot of snacks) and doing a lot of research and testing.
 ## Requirements
 You need to install
 - Intellij
