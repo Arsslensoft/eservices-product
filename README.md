@@ -1,33 +1,8 @@
 Dockerizing product microservices
 =======
-<!-- TOC -->
-- [Acknowledgement](#acknowledgement)
-- [Requirements](#requirements)
-- [Tip](#tip)
-- [Disclaimer](#disclaimer)
-- [Downloading Docker and starting the Docker engine](#downloading-docker-and-starting-the-docker-engine)
-    - [Checks](#checks)
-- [Microservices to deploy on Docker](#microservices-to-deploy-on-docker)
-- [Dockerising the Microservices](#dockerising-the-microservices)
-    - [Why not spotify docker maven plugin like previous generations?](#why-not-spotify-docker-maven-plugin-like-previous-generations)
-    - [Adding the plugin to pom.xml](#adding-the-plugin-to-pomxml)
-    - [Automating the build tasks](#automating-the-build-tasks)
-- [Creating a repository for the config files](#creating-a-repository-for-the-config-files)
-- [Changing some properties in the config repository](#changing-some-properties-in-the-config-repository)
-- [Building the images](#building-the-images)
-- [Writing the docker-compose.yml](#writing-the-docker-composeyml)
-    - [The config-service section](#the-config-service-section)
-    - [The product-service section](#the-product-service-section)
-    - [The discovery-service section](#the-discovery-service-section)
-    - [The proxy-service section](#the-proxy-service-section)
-    - [All in one file](#all-in-one-file)
-- [Running the docker-compose.yml](#running-the-docker-composeyml)
-- [Final result](#final-result)
-- [Conclusion](#conclusion)
-- [After party](#after-party)
-<!-- /TOC -->
+<!-- TOC -->autoauto- [Acknowledgement](#acknowledgement)auto- [Requirements](#requirements)auto- [Tip](#tip)auto- [Disclaimer](#disclaimer)auto- [Downloading Docker and starting the Docker engine](#downloading-docker-and-starting-the-docker-engine)auto    - [Checks](#checks)auto- [Microservices to deploy on Docker](#microservices-to-deploy-on-docker)auto- [Dockerising the Microservices](#dockerising-the-microservices)auto    - [Why not spotify docker maven plugin like previous generations?](#why-not-spotify-docker-maven-plugin-like-previous-generations)auto    - [Adding the plugin to pom.xml](#adding-the-plugin-to-pomxml)auto    - [Automating the build tasks](#automating-the-build-tasks)auto- [Creating a repository for the config files](#creating-a-repository-for-the-config-files)auto- [Changing some properties in the config repository](#changing-some-properties-in-the-config-repository)auto- [Building the images](#building-the-images)auto- [Writing the docker-compose.yml](#writing-the-docker-composeyml)auto    - [The config-service section](#the-config-service-section)auto    - [The product-service section](#the-product-service-section)auto    - [The discovery-service section](#the-discovery-service-section)auto    - [The proxy-service section](#the-proxy-service-section)auto    - [All in one file](#all-in-one-file)auto- [Running the docker-compose.yml](#running-the-docker-composeyml)auto- [Final result](#final-result)auto- [Conclusion](#conclusion)auto- [After party](#after-party)autoauto<!-- /TOC -->
 ## Acknowledgement
-This work has been achieved with the collaboration of Mohamed Assil Ben Amor, Saturday at GO MY CODE (eating a lot of snacks) and doing a lot of researches and testing.
+This work has been achieved with the collaboration of Mohamed Assil Ben Amor and Ismail Akrout, Saturday at GO MY CODE (eating a lot of snacks) and doing a lot of researches and testing.
 ## Requirements
 You need to install
 - Intellij
@@ -58,11 +33,11 @@ The resulting **architecture**:
 ![Architecture](docs/arch.png)
 
 ## Dockerising the Microservices
-To dockerize our microservices, i need to generate docker image from each Spring boot application using maven. This can be achieved by one of these methods:
+To dockerize our microservices, we need to generate docker image from each Spring boot application using maven. This can be achieved by one of these methods:
 - Create a Dockerfile manually for each micro-service
 - Using io.fabric8 (docker-maven-plugin)
 
-In this tutorial i will use the docker maven plugin, because i are going to automate the build tasks
+In this tutorial we will use the docker maven plugin, because we are going to automate the build tasks
 
 ### Why not spotify docker maven plugin like previous generations?
 Because in order to successfully launch the micro-services you need to do it in this order:
@@ -72,11 +47,11 @@ Because in order to successfully launch the micro-services you need to do it in 
 - Build discovery and proxy images
 - Run the product, discovery and proxy images
 
-The problem that i can face, that none of the previous generation covered that actually to do that you need to run them in order manually, but no i believe in automation that's the **DevOps spirit**.
+The problem that we can face, that none of the previous generation covered that actually to do that you need to run them in order manually, but no we believe in automation that's the **DevOps spirit**.
 
-And in order to do that i need to run commands to check service status or just wait for some time then execute the jar file.
+And in order to do that we need to run commands to check service status or just wait for some time then execute the jar file.
 
-Even though i used the dependency tag in the docker-compose.yml you need to set a time gap.
+Even though we used the dependency tag in the docker-compose.yml you need to set a time gap.
 ### Adding the plugin to pom.xml
 The first step, is to configure the config-service, so open pom.xml
 
@@ -106,7 +81,7 @@ The first step, is to configure the config-service, so open pom.xml
 				</configuration>
 			</plugin>
 ```
-**entryPoint** is the docker file entrypoint, using this plugin i will have a Dockerfile automatically generated when i do a ``docker:build``.
+**entryPoint** is the docker file entrypoint, using this plugin we will have a Dockerfile automatically generated when we do a ``docker:build``.
 
 This configuration will produce this Dockerfile
 
@@ -116,12 +91,12 @@ COPY maven /maven/
 ENTRYPOINT ["java", "-jar",  "/maven/config-service-0.0.1-SNAPSHOT.jar"]
 ```
 
-For the other projects i assumed that the projects needs to start:
+For the other projects we assumed that the projects needs to start:
 - 10 seconds after config-service for the discovery-service
 - 20 seconds after config-service for the product-service
 - 20 seconds after config-service for the proxy-service
 
-So it's obvious that i will use ``sleep timeInSeconds`` command
+So it's obvious that we will use ``sleep timeInSeconds`` command
 
 Here is an example pom.xml for product-service and proxy-service (just change the 20 to 10 for the discovery-service)
 
@@ -158,12 +133,12 @@ Here is an example pom.xml for product-service and proxy-service (just change th
 ```
 
 ### Automating the build tasks
-In this section i will describe how to automate the build actions and separate them from the ones used in the debugging.
+In this section we will describe how to automate the build actions and separate them from the ones used in the debugging.
 
-First i need to create a configuration for each project in the same way
+First we need to create a configuration for each project in the same way
 ![Edit configuration](docs/edit.png)
 
-don't panic you i will guide you to create the mvn package configuration
+don't panic you we will guide you to create the mvn package configuration
 
 Now you need to create a maven configuration
 
@@ -173,7 +148,7 @@ Make sure it is set like this
 
 ![Create maven configuration](docs/params-mvn.png)
 
-Now your build configuration is set, IntelliJ will create your docker image for you and push to the local docker registry (repository) (remember i are signed out from the docker registry)
+Now your build configuration is set, IntelliJ will create your docker image for you and push to the local docker registry (repository) (remember we are signed out from the docker registry)
 
 ## Creating a repository for the config files
 Create a repository
@@ -186,12 +161,12 @@ Go to ``config-service\src\main\resources\myConfig`` and type these commands in 
 
 
 ## Changing some properties in the config repository
-Now i need to change some properties before i start creating our **docker-compose.yml**.
+Now we need to change some properties before we start creating our **docker-compose.yml**.
 
-First i go to ``proxy-service.properties`` and add this property
+First we go to ``proxy-service.properties`` and add this property
 ``eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/``
 
-in our case the **discovery-service** is the host and the name of the docker container that i will use in compose file.
+in our case the **discovery-service** is the host and the name of the docker container that we will use in compose file.
 
 this property makes sure that the **proxy-service** automatically registers to **discover-service** by setting the default zone.
 
@@ -213,13 +188,13 @@ eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/
 ```
 
 ## Building the images
-Well building the images needs to be in order, and i have a problem here
+Well building the images needs to be in order, and we have a problem here
 
 **The product-service will not build if the config-service is offline**
 
 First build the config-service image using IntelliJ.
 
-So i need to run a config-service container first to build the product-service docker image.
+So we need to run a config-service container first to build the product-service docker image.
 
 I do it by typing this command
 
@@ -242,7 +217,7 @@ here is a screenshot
 ![docker images](docs/docker-images.png)
 
 ## Writing the docker-compose.yml
-This part is tricky, but i will cover it part by part.
+This part is tricky, but we will cover it part by part.
 
 - first we gonna create the file
 - add the config-service section
