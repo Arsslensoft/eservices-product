@@ -1,34 +1,9 @@
 Dockerizing product microservices
 =======
-<!-- TOC -->
-- [Acknowledgement](#acknowledgement)
-- [Requirements](#requirements)
-- [Tip](#tip)
-- [Disclaimer](#disclaimer)
-- [Downloading Docker and starting the Docker engine](#downloading-docker-and-starting-the-docker-engine)
-    - [Checks](#checks)
-- [Microservices to deploy on Docker](#microservices-to-deploy-on-docker)
-- [Dockerising the Microservices](#dockerising-the-microservices)
-    - [Why not spotify docker maven plugin like previous generations?](#why-not-spotify-docker-maven-plugin-like-previous-generations)
-    - [Adding the plugin to pom.xml](#adding-the-plugin-to-pomxml)
-    - [Automating the build tasks](#automating-the-build-tasks)
-- [Creating a repository for the config files](#creating-a-repository-for-the-config-files)
-- [Changing some properties in the config repository](#changing-some-properties-in-the-config-repository)
-- [Building the images](#building-the-images)
-- [Writing the docker-compose.yml](#writing-the-docker-composeyml)
-    - [The config-service section](#the-config-service-section)
-    - [The product-service section](#the-product-service-section)
-    - [The discovery-service section](#the-discovery-service-section)
-    - [The proxy-service section](#the-proxy-service-section)
-    - [All in one file](#all-in-one-file)
-- [Running the docker-compose.yml](#running-the-docker-composeyml)
-- [Final result](#final-result)
-- [Conclusion](#conclusion)
-- [After party](#after-party)
-<!-- /TOC -->
+<!-- TOC -->autoauto- [Acknowledgement](#acknowledgement)auto- [Requirements](#requirements)auto- [Tip](#tip)auto- [Disclaimer](#disclaimer)auto- [Downloading Docker and starting the Docker engine](#downloading-docker-and-starting-the-docker-engine)auto    - [Checks](#checks)auto- [Microservices to deploy on Docker](#microservices-to-deploy-on-docker)auto- [Dockerising the Microservices](#dockerising-the-microservices)auto    - [Why not spotify docker maven plugin like previous generations?](#why-not-spotify-docker-maven-plugin-like-previous-generations)auto    - [Adding the plugin to pom.xml](#adding-the-plugin-to-pomxml)auto    - [Automating the build tasks](#automating-the-build-tasks)auto- [Creating a repository for the config files](#creating-a-repository-for-the-config-files)auto- [Changing some properties in the config repository](#changing-some-properties-in-the-config-repository)auto- [Building the images](#building-the-images)auto- [Writing the docker-compose.yml](#writing-the-docker-composeyml)auto    - [The config-service section](#the-config-service-section)auto    - [The product-service section](#the-product-service-section)auto    - [The discovery-service section](#the-discovery-service-section)auto    - [The proxy-service section](#the-proxy-service-section)auto    - [All in one file](#all-in-one-file)auto- [Running the docker-compose.yml](#running-the-docker-composeyml)auto- [Final result](#final-result)auto- [Conclusion](#conclusion)auto- [After party](#after-party)autoauto<!-- /TOC -->
 ## Acknowledgement
+
 This work has been achieved with the collaboration of Mohamed Assil Ben Amor and Ismail Akrout, Saturday at GO MY CODE (eating a lot of snacks) and doing a lot of research and testing.
-=======
 
 ## Requirements
 You need to install
