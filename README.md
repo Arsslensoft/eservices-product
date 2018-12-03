@@ -173,7 +173,7 @@ in our case the **discovery-service** is the host and the name of the docker con
 this property makes sure that the **proxy-service** automatically registers to **discover-service** by setting the default zone.
 
 
-I will do the same for ``product-service.properties``.
+We will do the same for ``product-service.properties``.
 
 The final files will be:
 
@@ -198,7 +198,7 @@ First build the config-service image using IntelliJ.
 
 So we need to run a config-service container first to build the product-service docker image.
 
-I do it by typing this command
+We do it by typing this command
 
 `` 
 docker run -it -p 8888:8888 config-service --spring.cloud.config.server.git.uri=https://github.com/Arsslensoft/eservices-configs
