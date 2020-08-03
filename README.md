@@ -434,3 +434,6 @@ We discovered that it's not just about making docker images, its about linking t
 
 We just ate snacks of the hackathon and did our homework with love 🖤 hoping to get a 20.
 ![time](docs/after.png)
+
+# Donate
+<a href="https://www.buymeacoffee.com/arsslensoft" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 31px !important;width: 150px !important;" ></a>
